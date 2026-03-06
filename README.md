@@ -1,9 +1,9 @@
-##Witches Road - Console-Based Survival Game
+# Witches Road - Console-Based Survival Game
 Witches Road is a console-based, object-oriented survival and exploration game developed in C++. The game features tactical combat, dynamic environments, and a robust character management system. Players can navigate through two distinct levels, face various environmental hazards (Spikes, Quicksand), and battle entities like Ghosts.
 
 The primary goal of this project is to demonstrate a deep understanding of Advanced Object-Oriented Programming (OOP) concepts, Modern C++ features, the Standard Template Library (STL), and software Design Patterns.
 
-General Architecture
+## General Architecture
 The project is structured around multiple highly cohesive but cleanly separated class hierarchies, modeling the game's entities, environments, and equipment. It uses smart pointers extensively to ensure safe and leak-free memory management.
 
 1. Character Hierarchy (Entity Management)
@@ -34,7 +34,7 @@ Derived classes: Spikes, Quicksand, Ghost. These interact polymorphically with t
 Technical Highlights & OOP Implementation
 This project strictly adheres to clean code principles and fulfills advanced academic requirements:
 
-Design Patterns:
+## Design Patterns:
 
 Singleton Pattern: Used for the Game class to centralize game state management and ensure only one instance of the game loop runs.
 
