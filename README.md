@@ -1,61 +1,36 @@
-# Witches Road - Console-Based Survival Game
-Witches Road is a console-based, object-oriented survival and exploration game developed in C++. The game features tactical combat, dynamic environments, and a robust character management system. Players can navigate through two distinct levels, face various environmental hazards (Spikes, Quicksand), and battle entities like Ghosts.
+# Witches Road | Tactical Simulation Framework
+A modular, high-performance simulation engine built with Modern C++. This project serves as a technical showcase for scalable system architecture, focusing on decoupled logic, deterministic memory management, and advanced OOP patterns.
 
-The primary goal of this project is to demonstrate a deep understanding of Advanced Object-Oriented Programming (OOP) concepts, Modern C++ features, the Standard Template Library (STL), and software Design Patterns.
+## 🏗 System Architecture & Design Philosophy
+The engine is designed around the principle of Separation of Concerns (SoC), dividing the simulation into distinct, interoperable modules.
 
-## General Architecture
-The project is structured around multiple highly cohesive but cleanly separated class hierarchies, modeling the game's entities, environments, and equipment. It uses smart pointers extensively to ensure safe and leak-free memory management.
+### 1. Data-Driven Level Configuration
+Unlike hardcoded environments, the system utilizes a Configurator-based approach (LevelOneConfigurator, LevelTwoConfigurator).
 
-1. Character Hierarchy (Entity Management)
-This hierarchy models the playable entities in the game. Characters can be uniquely customized or generated using default templates via the `Factory` Design Pattern
+Impact: The core simulation loop is agnostic of specific level data. New environments can be injected by implementing the configurator interface, demonstrating a strong grasp of Dependency Injection principles.
 
-Base class: `Character` (Abstract) – Defines the core attributes and polymorphic interface for all entities.
+### 2. Entity Management (Factory & Polymorphism)
+Creational Logic: Implemented a Factory Pattern to centralize entity generation. This prevents the "leaking" of concrete class types into the main game logic, allowing for easy expansion of the character library.
 
-Derived classes:
+Complex Hierarchies: Managed diverse entity behaviors (e.g., Mortal vs. Immortal movement) through a clean polymorphic interface, ensuring that the engine treats all agents uniformly while executing specialized logic at runtime.
 
-`Witch` – A mortal character relying on speed, life points, and coven affiliations.
+### 3. Hybrid Item Composition 
+To support multi-functional objects (e.g., MagicItems that function as both physical weapons and magical spells), the system employs Virtual Inheritance.
 
-`Deity` – A powerful, immortal entity featuring flight mechanics (flySpeed, flyHeight), reincarnation abilities, and specific divine powers.
+Memory Optimization: By resolving the Diamond Problem through virtual bases, the engine ensures a lean memory footprint and prevents data duplication across complex inheritance graphs.
 
-2. Equipment & Abilities Hierarchy (Multiple Inheritance)
-Models the combat and utility systems, showcasing advanced C++ inheritance mechanics.
+Logic Composition: Merges durability-based physical logic with charge-based magical logic into a unified, stateful component.
 
-Base classes: `Spell` (handles magical casting, healing, and AOE parameters) and `Weapon` (handles physical durability, attack range, and status effects).
+## 🚀 Technical Excellence & Backend Standards
+Memory Safety & Resource Management
+RAII Implementation: 100% adherence to Resource Acquisition Is Initialization. All object lifecycles are managed through Smart Pointers (std::unique_ptr for exclusive ownership, std::shared_ptr for shared world resources).
 
-Derived class: `MagicItems` – A complex class that inherits from both `Spell` and `Weapon`. It successfully resolves the `Diamond Problem` (via virtual inheritance from a common Items base). It implements custom damage calculation logic based on item rarity, durability degradation, and spell charges.
+Rule of Five: Explicitly implemented move semantics and copy control to ensure efficient resource transfers and prevent dangling pointers or memory leaks.
 
-3. Environment & Hazards Hierarchy
-Models the interactive world.
+## Performance & Data Processing
+STL Integration: Optimized entity filtering and spatial queries using STL Algorithms (std::find_if, std::for_each, std::remove_if) combined with Lambda expressions.
 
-Base class: `Obstacles`
+Generic Programming: Developed a template-based Inventory<T> system, allowing for type-safe storage and manipulation of diverse object types without code duplication.
 
-Derived classes: `Spikes`, `Quicksand`, `Ghost`. These interact polymorphically with the characters, applying damage or status effects based on the entity's type.
-
-Technical Highlights & OOP Implementation
-This project strictly adheres to clean code principles and fulfills advanced academic requirements:
-
-## Design Patterns:
-
-`Singleton` Pattern: Used for the Game class to centralize game state management and ensure only one instance of the game loop runs.
-
-`Factory` Method: Used for seamless character creation (instantiating customized or default Witches and Deities).
-
-Robust Memory Management:
-
-Strict adherence to the Rule of Three/Five (custom copy constructors, assignment operators, and virtual destructors).
-
-Exclusive use of smart pointers (std::shared_ptr) for object ownership.
-
-Advanced `Polymorphism`: Extensive use of abstract classes, virtual functions, and runtime polymorphism (Upcasting and Downcasting) to manage interactions between characters, weapons, and obstacles.
-
-Modern C++ & STL:
-
-Integration of multiple STL containers (e.g., std::vector, std::list) to manage inventory and map entities.
-
-Data processing and entity filtering using STL algorithms combined with Lambda functions.
-
-Implementation of Custom Template Classes with multiple instantiations to handle generic game data.
-
-`Exception Handling`: A custom, hierarchical error-handling system derived from std::exception. It demonstrates exception propagation and polymorphic catch blocks (upcasting exceptions) to safely handle invalid game states.
-
-Class Design Best Practices: Heavy use of const correctness, non-trivial static members/methods for shared class states, and extensive Operator Overloading (<<, >>, arithmetic, and logic operators).
+System Resilience
+Custom Exception Hierarchy: Designed a robust error-reporting system derived from std::exception. It handles everything from invalid move-states to resource exhaustion, ensuring the simulation can recover gracefully without a total process crash.
