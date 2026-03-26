@@ -28,7 +28,7 @@ RAII Implementation: 100% adherence to Resource Acquisition Is Initialization. A
 Rule of Five: Explicitly implemented move semantics and copy control to ensure efficient resource transfers and prevent dangling pointers or memory leaks.
 
 ## Performance & Data Processing
-STL Integration: Optimized entity filtering and spatial queries using STL Algorithms (std::find_if, std::for_each, std::remove_if) combined with Lambda expressions.
+`STL Integration`: Optimized entity filtering and spatial queries using STL Algorithms combined with `Lambda expressions`.
 
 Generic Programming: Developed a template-based Inventory<T> system, allowing for type-safe storage and manipulation of diverse object types without code duplication.
 
